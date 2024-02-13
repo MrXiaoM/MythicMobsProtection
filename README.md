@@ -26,3 +26,11 @@ Command alias: `mythicmobsprotection`, `mythicmobsext`, `mmprotection`, `mmprote
 |-------------------------------|------------------------------------------------|
 | `/mmp skill <player> <skill>` | Cast spell for player without any message tips |
 | `/mmp toggle`                 | Toggle protection status for test              |
+
+## Build
+
+Please run gradle with `Java 17`, build result is still `8` compatibly
+
+```shell
+./gradlew build
+```

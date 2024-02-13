@@ -1,22 +1,17 @@
 package top.mrxiaom.mmprotection.commands;
 
 import com.google.common.collect.Lists;
-import io.lumine.mythic.bukkit.MythicBukkit;
-import io.lumine.mythic.core.utils.MythicUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import top.mrxiaom.mmprotection.MythicMobsProtection;
 import top.mrxiaom.mmprotection.func.AbstractPluginHolder;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
