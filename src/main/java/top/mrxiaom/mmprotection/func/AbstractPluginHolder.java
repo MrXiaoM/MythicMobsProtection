@@ -5,7 +5,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.command.TabCompleter;
-import org.bukkit.configuration.MemoryConfiguration;
 import org.bukkit.event.Listener;
 import org.jetbrains.annotations.Nullable;
 import top.mrxiaom.mmprotection.utils.ColorHelper;
@@ -24,10 +23,6 @@ public abstract class AbstractPluginHolder {
         this.plugin = plugin;
     }
 
-
-    public void reloadConfig(MemoryConfiguration config) {
-
-    }
     public void onDisable() {
 
     }
@@ -87,12 +82,6 @@ public abstract class AbstractPluginHolder {
         T inst = (T) registeredHolders.get(clazz);
         if (inst == null) return Optional.empty();
         return Optional.of(inst);
-    }
-
-    public static void reloadAllConfig(MemoryConfiguration config) {
-        for (AbstractPluginHolder inst : registeredHolders.values()) {
-            inst.reloadConfig(config);
-        }
     }
 
     public static void disableAllModule() {

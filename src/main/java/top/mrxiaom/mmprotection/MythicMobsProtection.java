@@ -92,13 +92,4 @@ public class MythicMobsProtection extends JavaPlugin implements Listener, TabCom
         AbstractPluginHolder.disableAllModule();
         getLogger().info("Plugin disabled");
     }
-
-    @Override
-    public void reloadConfig() {
-        this.saveDefaultConfig();
-        super.reloadConfig();
-
-        FileConfiguration config = getConfig();
-        AbstractPluginHolder.reloadAllConfig(config);
-    }
 }
