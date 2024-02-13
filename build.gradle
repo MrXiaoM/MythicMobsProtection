@@ -1,0 +1,87 @@
+plugins {
+    id "java"
+    id "maven-publish"
+    id "com.github.johnrengelman.shadow" version "7.0.0"
+}
+
+group = "top.mrxiaom"
+version = "1.0.0"
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven { url "https://maven.fastmirror.net/repositories/minecraft" }
+    maven { url "https://mvn.lumine.io/repository/maven/" }
+    maven { url = "https://repo.codemc.io/repository/maven-public/" }
+    maven { name "Aikar"; url "https://repo.aikar.co/content/groups/aikar/" }
+    maven { url "https://repo.papermc.io/repository/maven-public/" }
+    maven {
+        name = "spigotmc-repo"
+        url = "https://hub.spigotmc.org/nexus/content/repositories/snapshots/"
+    }
+    maven { url = "https://repo.viaversion.com/" }
+    maven { url = "https://repo.extendedclip.com/content/repositories/placeholderapi/" }
+    maven { url = "https://jitpack.io" }
+    maven { url = "https://ci.nyaacat.com/maven/" }
+    maven {
+        name = "sonatype"
+        url = "https://oss.sonatype.org/content/groups/public/"
+    }
+    maven {
+        url = 'https://repo.glaremasters.me/repository/public/'
+    }
+}
+
+dependencies {
+    compileOnly("org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT")
+    compileOnly("io.lumine:Mythic-Dist:4.13.0")
+    compileOnly("io.lumine:Mythic:5.4.1")
+    compileOnly("io.lumine:LumineUtils:1.20-SNAPSHOT")
+    compileOnly("me.glaremasters:guilds:3.5.7.0")
+    compileOnly(fileTree("libs"))
+    implementation("org.jetbrains:annotations:19.0.0")
+}
+shadowJar {
+    classifier("")
+    def targetGroup = "top.mrxiaom.mmprotection.utils."
+    relocate("org.intellij.lang.annotations", targetGroup + "annotations.intellij")
+    relocate("org.jetbrains.annotations", targetGroup + "annotations.jetbrains")
+}
+tasks.build.dependsOn(shadowJar)
+
+def targetJavaVersion = 8
+java {
+
+    def javaVersion = JavaVersion.toVersion(targetJavaVersion)
+    if (JavaVersion.current() < javaVersion) {
+        toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = "UTF-8"
+    if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
+        options.release.set(targetJavaVersion)
+    }
+}
+
+processResources {
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+    from(sourceSets.main.resources.srcDirs) {
+        expand(
+            "name": rootProject.name,
+            "version": version,
+        )
+        include "plugin.yml"
+    }
+}
+publishing {
+    publications {
+        mavenRelease(MavenPublication) {
+            from components.java
+            groupId = project.group
+            artifactId = project.name
+            version = project.version
+        }
+    }
+}

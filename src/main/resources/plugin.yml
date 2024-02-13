@@ -1,0 +1,17 @@
+name: ${name}
+version: '${version}'
+main: top.mrxiaom.mmprotection.MythicMobsProtection
+depend:
+  - MythicMobs
+softdepend:
+  - Residence
+  - Guilds
+authors: [ MrXiaoM ]
+commands:
+  mythicmobsprotection:
+    description: awa
+    aliases:
+      - mythicmobsext
+      - mmprotection
+      - mmprotect
+      - mmp
